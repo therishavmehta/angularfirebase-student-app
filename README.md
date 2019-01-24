@@ -12,7 +12,7 @@ A demo CRUD app for student record management system built with Angular 7 and Fi
 [https://bit.ly/2OxQ1Dm](https://bit.ly/2OxQ1Dm) \
 
 ## Step by Step Article
-[Angular 7 Firebase5 CRUD Operations with Reactive Forms (https://www.positronx.io/angular-7-firebase-5-crud-operations-with-reactive-forms/)
+[Angular 7 Firebase5 CRUD Operations with Reactive Forms](https://www.positronx.io/angular-7-firebase-5-crud-operations-with-reactive-forms)
 
 ## Built with
 - Node 8.11.1
