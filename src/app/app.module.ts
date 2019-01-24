@@ -41,7 +41,7 @@ import { AppComponent } from './app.component';
     ReactiveFormsModule,        // Reactive forms module
     AppRoutingModule,           // Main routing module
     BrowserAnimationsModule,    // Required animations module for Toastr
-    ToastrModule.forRoot({
+    ToastrModule.forRoot({      // Register NgxToast NPM module
       timeOut: 3000,
       positionClass: 'toast-bottom-right',
       preventDuplicates: true,      

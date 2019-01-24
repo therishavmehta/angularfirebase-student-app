@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CrudService } from '../shared/crud.service';
 import { ActivatedRoute, Router } from "@angular/router"; // ActivatedRoue is used to get the current associated components information.

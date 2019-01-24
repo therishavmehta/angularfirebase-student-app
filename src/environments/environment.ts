@@ -10,7 +10,7 @@ export const environment = {
       databaseURL: "https://angularfirebase-student-app.firebaseio.com",
       projectId: "angularfirebase-student-app",
       storageBucket: "angularfirebase-student-app.appspot.com",
-      messagingSenderId: "18280089415"    
+      messagingSenderId: "18280089415"
   }
 };
 

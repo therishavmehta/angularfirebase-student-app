@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { CrudService } from '../shared/crud.service';  // CRUD API service class
 import { Student } from './../shared/student';   // Student interface class for Data types.
 import { ToastrService } from 'ngx-toastr';      // Alert message using NGX toastr
