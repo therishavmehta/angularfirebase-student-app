@@ -1,12 +1,8 @@
 # AngularFirebaseStudentDemoApp
 
-A demo CRUD app for student record management system built with Angular 7 and Firebase 5 Real-time NoSQL cloud daatabase. After installing this project, install required NPM modules.
+A demo CRUD app for student record management system built with Angular 7 and Firebase 5 Real-time NoSQL cloud daatabase. 
 
-- Firebase 5.8.0
-- Bootstrap 4.2.1
-- Font Awesome
-- NGX Toastr 9.1.1
-- NGX Pagination 3.2.1
+Run `npm install` to install required dependencies.
 
 ## Project Demo
 [https://bit.ly/2OxQ1Dm](https://bit.ly/2OxQ1Dm) \
