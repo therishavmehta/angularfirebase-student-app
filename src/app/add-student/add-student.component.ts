@@ -11,7 +11,7 @@ import { ToastrService } from 'ngx-toastr'; // Alert message using NGX toastr
 })
 
 export class AddStudentComponent implements OnInit {
-  public studentForm: FormGroup;  // Define FormGroup to student's form
+  public applicationForm: FormGroup;  // Define FormGroup to student's form
  
   constructor(
     public crudApi: CrudService,  // CRUD API services
@@ -21,45 +21,49 @@ export class AddStudentComponent implements OnInit {
 
  
   ngOnInit() {
-    this.crudApi.GetStudentsList();  // Call GetStudentsList() before main form is being called
-    this.studenForm();              // Call student form when component is ready
+    this.crudApi.GetAppointmentsList();  // Call GetStudentsList() before main form is being called
+    this.applicationFormFunction();              // Call student form when component is ready
   }
 
   // Reactive student form
-  studenForm() {
-    this.studentForm = this.fb.group({
-      firstName: ['', [Validators.required, Validators.minLength(2)]],
-      lastName: [''],
-      email: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')]],
-      mobileNumber: ['', [Validators.required, Validators.pattern('^[0-9]+$')]]
+  applicationFormFunction() {
+    this.applicationForm = this.fb.group({
+      ailment: ['', [Validators.required, Validators.minLength(2)]],
+      date: [''],
+      doctorID: ['', [Validators.required,Validators.minLength(2)]],
+      patientID: ['', [Validators.required, Validators.minLength(2)]],
+      status: ['', Validators.required]
     })  
   }
 
   // Accessing form control using getters
-  get firstName() {
-    return this.studentForm.get('firstName');
+  get ailment() {
+    return this.applicationForm.get('ailment');
   }
 
-  get lastName() {
-    return this.studentForm.get('lastName');
+  get date() {
+    return this.applicationForm.get('date');
+  }
+
+  get doctorID() {
+    return this.applicationForm.get('doctorID');
+  }
+
+  get patientID() {
+    return this.applicationForm.get('patientID');
   }  
-
-  get email() {
-    return this.studentForm.get('email');
-  }
-
-  get mobileNumber() {
-    return this.studentForm.get('mobileNumber');
+  get status() {
+    return this.applicationForm.get('status');
   }
 
   // Reset student form's values
   ResetForm() {
-    this.studentForm.reset();
+    this.applicationForm.reset();
   }  
  
-  submitStudentData() {
-    this.crudApi.AddStudent(this.studentForm.value); // Submit student data using CRUD API
-    this.toastr.success(this.studentForm.controls['firstName'].value + ' successfully added!'); // Show success message when data is successfully submited
+  submitAppointmentData() {
+    this.crudApi.AddAppointment(this.applicationForm.value); // Submit student data using CRUD API
+    this.toastr.success(this.applicationForm.controls['ailment'].value + ' successfully added!'); // Show success message when data is successfully submited
     this.ResetForm();  // Reset form when clicked on reset button
    };
 

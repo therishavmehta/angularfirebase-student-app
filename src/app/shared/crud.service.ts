@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Student } from '../shared/student';  // Student data type interface class
+import { Appointment } from '../shared/appointment';  // Student data type interface class
 import { AngularFireDatabase, AngularFireList, AngularFireObject } from '@angular/fire/database';  // Firebase modules for Database, Data list and Single object
 
 @Injectable({
@@ -7,48 +7,48 @@ import { AngularFireDatabase, AngularFireList, AngularFireObject } from '@angula
 })
 
 export class CrudService {
-  studentsRef: AngularFireList<any>;    // Reference to Student data list, its an Observable
-  studentRef: AngularFireObject<any>;   // Reference to Student object, its an Observable too
+  appointmentsRef: AngularFireList<any>;    // Reference to Student data list, its an Observable
+  appointmentRef: AngularFireObject<any>;   // Reference to Student object, its an Observable too
   
   // Inject AngularFireDatabase Dependency in Constructor
   constructor(private db: AngularFireDatabase) { }
 
   // Create Student
-  AddStudent(student: Student) {
-    this.studentsRef.push({
-      firstName: student.firstName,
-      lastName: student.lastName,
-      email: student.email,
-      mobileNumber: student.mobileNumber
+  AddAppointment(appointment: Appointment) {
+    this.appointmentsRef.push({
+      ailment: appointment.ailment,
+      date: appointment.date,
+      doctorID: appointment.doctorID,
+      patientID: appointment.patientID
     })
   }
 
   // Fetch Single Student Object
-  GetStudent(id: string) {
-    this.studentRef = this.db.object('students-list/' + id);
-    return this.studentRef;
+  GetAppointment(id: string) {
+    this.appointmentRef = this.db.object('appointments/' + id);
+    return this.appointmentRef;
   }
 
   // Fetch Students List
-  GetStudentsList() {
-    this.studentsRef = this.db.list('students-list');
-    return this.studentsRef;
+  GetAppointmentsList() {
+    this.appointmentsRef = this.db.list('appointments');
+    return this.appointmentsRef;
   }  
 
   // Update Student Object
-  UpdateStudent(student: Student) {
-    this.studentRef.update({
-      firstName: student.firstName,
-      lastName: student.lastName,
-      email: student.email,
-      mobileNumber: student.mobileNumber
+  UpdateAppointment(appointment: Appointment) {
+    this.appointmentRef.update({
+      ailment: appointment.ailment,
+      date: appointment.date,
+      doctorID: appointment.doctorID,
+      patientID: appointment.patientID
     })
   }  
 
   // Delete Student Object
-  DeleteStudent(id: string) { 
-    this.studentRef = this.db.object('students-list/'+id);
-    this.studentRef.remove();
+  DeleteAppointment(id: string) { 
+    this.appointmentRef = this.db.object('appointments/'+id);
+    this.appointmentRef.remove();
   }
   
 }

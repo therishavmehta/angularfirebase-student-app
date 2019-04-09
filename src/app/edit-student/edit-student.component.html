@@ -18,29 +18,29 @@
             <div class="row">
               <div class="col-md-12 mb-3">
                 <label>First name</label>
-                <input type="text" formControlName="firstName" class="form-control" required>
-                <p *ngIf="firstName.touched && firstName.invalid" class="error"><sup>*</sup>Please enter first name</p>
-                <p *ngIf="firstName.errors?.minlength" class="error"><sup>*</sup>Name shouldn't be less than 2 words</p>
+                <input type="text" formControlName="ailment" class="form-control" required>
+                <p *ngIf="ailment.touched && ailment.invalid" class="error"><sup>*</sup>Please enter first name</p>
+                <p *ngIf="ailment.errors?.minlength" class="error"><sup>*</sup>Name shouldn't be less than 2 words</p>
               </div>
               <div class="col-md-12 mb-3">
-                <label>Last name</label>
-                <input type="text" formControlName="lastName" class="form-control">
+                <label>date</label>
+                <input type="date" formControlName="date" class="form-control">
               </div>
             </div>
             <div class="row">
               <div class="col-md-12 mb-3">
-                <label>Email</label>
-                <input type="email" formControlName="email" class="form-control" required>
-                <p *ngIf="email.touched && email.invalid" class="error"><sup>*</sup>Please provide email</p>
-                <p *ngIf="email.errors?.pattern" class="error"><sup>*</sup>Please enter correct email</p>
+                <label>doctorID</label>
+                <input type="text" formControlName="doctorID" class="form-control" required>
+                <p *ngIf="doctorID.touched && email.invalid" class="error"><sup>*</sup>Please provide email</p>
+                <p *ngIf="doctorID.errors?.pattern" class="error"><sup>*</sup>Please enter correct email</p>
               </div>
               <div class="col-md-12 mb-3">
-                <label>Mobile number</label>
-                <input type="text" formControlName="mobileNumber" class="form-control" required>
-                <p *ngIf="mobileNumber.touched && mobileNumber.invalid" class="error"><sup>*</sup>Please provide
+                <label>PatientID</label>
+                <input type="text" formControlName="patientID" class="form-control" required>
+                <p *ngIf="patientID.touched && mobileNumber.invalid" class="error"><sup>*</sup>Please provide
                   contact
                   number</p>
-                <p *ngIf="mobileNumber.errors?.pattern" class="error"><sup>*</sup>Use numbers only
+                <p *ngIf="patientID.errors?.pattern" class="error"><sup>*</sup>Use numbers only
                   number</p>
               </div>
             </div>

@@ -24,37 +24,41 @@ export class EditStudentComponent implements OnInit {
   ){ }
 
   ngOnInit() {
-    this.updateStudentData();   // Call updateStudentData() as soon as the component is ready 
+    this.updateAppointmentData();   // Call updateStudentData() as soon as the component is ready 
     const id = this.actRoute.snapshot.paramMap.get('id');  // Getting current component's id or information using ActivatedRoute service
-    this.crudApi.GetStudent(id).valueChanges().subscribe(data => {
+    this.crudApi.GetAppointment(id).valueChanges().subscribe(data => {
       this.editForm.setValue(data)  // Using SetValue() method, It's a ReactiveForm's API to store intial value of reactive form 
     })
   }
 
   // Accessing form control using getters
-  get firstName() {
-    return this.editForm.get('firstName');
+  get ailment() {
+    return this.editForm.get('ailment');
   }
 
-  get lastName() {
-    return this.editForm.get('lastName');
+  get date() {
+    return this.editForm.get('date');
   }
 
-  get email() {
-    return this.editForm.get('email');
+  get doctorID() {
+    return this.editForm.get('doctorID');
   }
 
-  get mobileNumber() {
-    return this.editForm.get('mobileNumber');
+  get patientID() {
+    return this.editForm.get('patientID');
   }  
+  get status() {
+    return this.editForm.get('status');
+  }
 
   // Contains Reactive Form logic
-  updateStudentData() {
+  updateAppointmentData() {
     this.editForm = this.fb.group({
-      firstName: ['', [Validators.required, Validators.minLength(2)]],
-      lastName: [''],
-      email: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')]],
-      mobileNumber: ['', [Validators.required, Validators.pattern('^[0-9]+$')]]
+      ailment: [''],
+      date: [''],
+      doctorID: [''],
+      patientID: [''],
+      status: ['']
     })
   }
 
@@ -65,8 +69,8 @@ export class EditStudentComponent implements OnInit {
 
   // Below methods fire when somebody click on submit button
   updateForm(){
-    this.crudApi.UpdateStudent(this.editForm.value);       // Update student data using CRUD API
-    this.toastr.success(this.editForm.controls['firstName'].value + ' updated successfully');   // Show succes message when data is successfully submited
+    this.crudApi.UpdateAppointment(this.editForm.value);       // Update student data using CRUD API
+    this.toastr.success(this.editForm.controls['ailment'].value + ' updated successfully');   // Show succes message when data is successfully submited
     this.router.navigate(['view-students']);               // Navigate to student's list page when student data is updated
   }
 
