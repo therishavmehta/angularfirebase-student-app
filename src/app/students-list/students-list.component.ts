@@ -16,40 +16,56 @@ export class StudentsListComponent implements OnInit {
   hideWhenNoAppointment: boolean = false; // Hide students data table when no student.
   noData: boolean = false;            // Showing No Student Message, when no student in database.
   preLoader: boolean = true;          // Showing Preloader to show user data is coming for you from thre server(A tiny UX Shit)
-  
-
   constructor(
     public crudApi: CrudService, // Inject student CRUD services in constructor.
     public toastr: ToastrService // Toastr service for alert message
-    ){ }
+    )  { }
 
 
   ngOnInit() {
     this.dataState(); // Initialize student's list, when component is ready
-    let s = this.crudApi.GetAppointmentsList(); 
+    const s = this.crudApi.GetAppointmentsList();
     s.snapshotChanges().subscribe(data => { // Using snapshotChanges() method to retrieve list of data along with metadata($key)
       this.Appointment = [];
       data.forEach(item => {
-        let a = item.payload.toJSON(); 
+        const a = item.payload.toJSON();
+        this.crudApi.getPatientById(a['patientID'])
+        .valueChanges().subscribe(datas => {
+          for (let i = 0; i < datas.length; i++) {
+            if (datas[i].email.includes(a['patientID'])) {
+                a['patient'] = datas[i];
+            }
+          }
+        });
+        this.crudApi.getDoctorList().snapshotChanges().subscribe(doctor => {
+          doctor.forEach(items => {
+          for (let i = 0; i < doctor.length; i++) {
+            if (a['doctorID'] === items.key) {
+                a['doctor'] = items.payload.toJSON();
+            }
+            }
+          });
+        });
         a['$key'] = item.key;
+        console.log(a);
         this.Appointment.push(a as Appointment);
-      })
-      console.log(this.Appointment);
-    })
+      });
+    });
   }
 
   // Using valueChanges() method to fetch simple list of students data. It updates the state of hideWhenNoStudent, noData & preLoader variables when any changes occurs in student data list in real-time.
-  dataState() {     
+  dataState() {
     this.crudApi.GetAppointmentsList().valueChanges().subscribe(data => {
       this.preLoader = false;
-      if(data.length <= 0){
+      console.log(data[0].patientID);
+      if (data.length <= 0) {
         this.hideWhenNoAppointment = false;
         this.noData = true;
       } else {
         this.hideWhenNoAppointment = true;
         this.noData = false;
       }
-    })
+    });
   }
 
   // Method to delete student object
