@@ -44,10 +44,9 @@ import { AppComponent } from './app.component';
     ToastrModule.forRoot({      // Register NgxToast NPM module
       timeOut: 3000,
       positionClass: 'toast-bottom-right',
-      preventDuplicates: true,      
+      preventDuplicates: true,
     }),
     NgxPaginationModule  // NGX pagination module
-    
   ],
   providers: [],
   bootstrap: [AppComponent]

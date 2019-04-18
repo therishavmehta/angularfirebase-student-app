@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { CrudService } from '../shared/crud.service';
-import { ActivatedRoute, Router } from "@angular/router"; // ActivatedRoue is used to get the current associated components information.
+import { ActivatedRoute, Router } from '@angular/router'; // ActivatedRoue is used to get the current associated components information.
 import { Location } from '@angular/common';  // Location service is used to go back to previous component
 import { ToastrService } from 'ngx-toastr';
-
+import {Observable} from 'rxjs';
+import Doctor from 'src/app/shared/doctor';
+import {startWith, map } from 'rxjs/operators';
 @Component({
   selector: 'app-edit-student',
   templateUrl: './edit-student.component.html',
@@ -13,24 +15,45 @@ import { ToastrService } from 'ngx-toastr';
 
 export class EditStudentComponent implements OnInit {
   editForm: FormGroup;  // Define FormGroup to student's edit form
-  
   constructor(
     private crudApi: CrudService,       // Inject CRUD API in constructor
     private fb: FormBuilder,            // Inject Form Builder service for Reactive forms
     private location: Location,         // Location service to go back to previous component
     private actRoute: ActivatedRoute,   // Activated route to get the current component's inforamation
     private router: Router,             // Router service to navigate to specific component
-    private toastr: ToastrService       // Toastr service for alert message
-  ){ }
-
+    private toastr: ToastrService,
+           // Toastr service for alert message
+  ) { }
+  doctorList: Doctor[] = [];
+    filteredOptions: Observable<any[]>;
   ngOnInit() {
-    this.updateAppointmentData();   // Call updateStudentData() as soon as the component is ready 
+  //   const s = this.crudApi.getDoctorList();
+  //   s.snapshotChanges().subscribe(data => { // Using snapshotChanges() method to retrieve list of data along with metadata($key)
+  //     data.forEach(item => {
+  //       const val = item.payload.toJSON();
+  //       val['$key'] = item.key;
+  //       this.doctorList.push(val as Doctor);
+  //       });
+  //       console.log(this.doctorList);
+  //   });
+  //   this.filteredOptions = this.editForm.valueChanges
+  // .pipe(
+  //   startWith(''),
+  //   map(val => this._filter(val))
+  // );
+  //   console.log(s);
+    this.updateAppointmentData();   // Call updateStudentData() as soon as the component is ready
     const id = this.actRoute.snapshot.paramMap.get('id');  // Getting current component's id or information using ActivatedRoute service
     this.crudApi.GetAppointment(id).valueChanges().subscribe(data => {
-      this.editForm.setValue(data)  // Using SetValue() method, It's a ReactiveForm's API to store intial value of reactive form 
-    })
+      this.editForm.setValue(data); // Using SetValue() method, It's a ReactiveForm's API to store intial value of reactive form
+    });
   }
-
+  _filter(val) {
+    if (this.doctorList) {
+    return this.doctorList.filter(option =>
+    option.employeeName.toLowerCase().includes(val.toLowerCase()));
+   }
+ }
   // Accessing form control using getters
   get ailment() {
     return this.editForm.get('ailment');
@@ -46,7 +69,7 @@ export class EditStudentComponent implements OnInit {
 
   get patientID() {
     return this.editForm.get('patientID');
-  }  
+  }
   get status() {
     return this.editForm.get('status');
   }
@@ -59,7 +82,7 @@ export class EditStudentComponent implements OnInit {
       doctorID: [''],
       patientID: [''],
       status: ['']
-    })
+    });
   }
 
   // Go back to previous component
@@ -68,9 +91,10 @@ export class EditStudentComponent implements OnInit {
   }
 
   // Below methods fire when somebody click on submit button
-  updateForm(){
+  updateForm() {
     this.crudApi.UpdateAppointment(this.editForm.value);       // Update student data using CRUD API
-    this.toastr.success(this.editForm.controls['ailment'].value + ' updated successfully');   // Show succes message when data is successfully submited
+    this.toastr.success(this.editForm.controls['ailment'].value +
+     ' updated successfully');   // Show succes message when data is successfully submited
     this.router.navigate(['view-students']);               // Navigate to student's list page when student data is updated
   }
 

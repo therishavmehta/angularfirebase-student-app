@@ -1,7 +1,5 @@
 <div class="pt-3 pb-2 mb-3 border-bottom">
-  <h1 class="h2">Add Student</h1>
-  <p class="custom-text">A demo CRUD app for <strong>student record management system</strong> built with <strong>Angular7
-      and Firebase5</strong></p>
+  <h1 class="h2">Add Appointment</h1>
 </div>
 
 <!-- Student form -->
@@ -9,29 +7,25 @@
   <div class="row">
     <div class="col-lg-5 col-md-12 col-sm-12">
       <div class="row">
-
         <div class="col-md-12 mb-3">
           <label>Ailment</label>
           <input type="text" formControlName="ailment" class="form-control" required>
           <!-- Showing errors using getter method -->
-          <p *ngIf="firstName.touched && ailment.invalid" class="error"><sup>*</sup>Please enter atleast first name</p>
-          <p *ngIf="ailment.errors?.minlength" class="error"><sup>*</sup>Name shouldn't be less than 2 words</p>
+          <p *ngIf="ailment.touched && ailment.invalid" class="error"><sup>*</sup>Please enter atleast ailment</p>
+          <p *ngIf="ailment.errors?.minlength" class="error"><sup>*</sup>Ailment shouldn't be less than 2 words</p>
         </div>
-
+      </div>
+      <div class="row">
         <div class="col-md-12 mb-3">
           <label>Date</label>
           <input type="date" formControlName="date" class="form-control">
         </div>
-
       </div>
 
       <div class="row">
         <div class="col-md-12 mb-3">
           <label>Doctor</label>
-          <input type="email" formControlName="doctor" class="form-control" required>
-          <!-- Showing errors using getter method -->
-          <p *ngIf="doctor.touched && email.invalid" class="error"><sup>*</sup>Please provide doctorID</p>
-          <p *ngIf="doctor.errors?.pattern" class="error"><sup>*</sup>Please enter correct doctorID</p>
+          <input type="email" formControlName="doctorID" class="form-control" required>
         </div>
 
         <!-- <div class="col-md-12 mb-3">
@@ -44,6 +38,18 @@
             number</p>
         </div> -->
 
+      </div>
+      <div class="row">
+        <div class="col-md-12 mb-3">
+          <label>Patient</label>
+          <input type="text" formControlName="patientID" class="form-control">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 mb-3">
+          <label>Status</label>
+          <input type="number" formControlName="status" class="form-control">
+        </div>
       </div>
 
       <div class="form-group text-right">

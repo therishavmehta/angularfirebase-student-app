@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Appointment } from '../shared/appointment';  // Student data type interface class
-import { AngularFireDatabase, AngularFireList, AngularFireObject } from '@angular/fire/database';  // Firebase modules for Database, Data list and Single object
+import { AngularFireDatabase, AngularFireList,
+  AngularFireObject } from '@angular/fire/database';  // Firebase modules for Database, Data list and Single object
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +25,7 @@ export class CrudService {
       patientID: appointment.patientID
     });
   }
-  getPatientById(id: string) {
+  getPatients() {
     this.patientsRef = this.db.list('patients');
     return this.patientsRef;
 
@@ -49,7 +50,6 @@ export class CrudService {
   // Update Student Object
   UpdateAppointment(appointment: Appointment) {
     this.appointmentRef.update({
-      ailment: appointment.ailment,
       date: appointment.date,
       doctorID: appointment.doctorID,
       patientID: appointment.patientID

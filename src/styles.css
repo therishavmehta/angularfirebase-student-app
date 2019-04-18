@@ -9,7 +9,7 @@ body{font-size:.875rem;font-family:'Poppins', sans-serif;}
 @supports ((position:-webkit-sticky) or (position:sticky)){.sidebar-sticky{position:-webkit-sticky;position:sticky;}}
 .sidebar .nav-link{font-weight:500;color:#333;}
 .sidebar .nav-link .feather{margin-right:4px;color:#999;}
-.sidebar .nav-link.active{color:#007bff;}
+.sidebar .nav-link.active{color:#113F8D;}
 .sidebar .nav-link:hover .feather,.sidebar .nav-link.active .feather{color:inherit;}
 .sidebar-heading{font-size:.75rem;text-transform:uppercase;}
 
@@ -24,7 +24,7 @@ body{font-size:.875rem;font-family:'Poppins', sans-serif;}
 .form-control-dark:focus{border-color:transparent;box-shadow:0 0 0 3px rgba(255, 255, 255, .25);}
 .form-control:focus{border-color:#00BCD4;box-shadow:none;}
 .form-control{font-size:14px;}
-.bg-dark{background-color:#1633FF !important;}
+.bg-dark{background-color:#113F8D !important;}
 .gap-right{margin-right:10px;}
 i{width:22px;text-align:center;margin-right:5px;}
 .inner-adjust{padding:0 20px;}

@@ -12,14 +12,13 @@ import { ToastrService } from 'ngx-toastr'; // Alert message using NGX toastr
 
 export class AddStudentComponent implements OnInit {
   public applicationForm: FormGroup;  // Define FormGroup to student's form
- 
   constructor(
     public crudApi: CrudService,  // CRUD API services
     public fb: FormBuilder,       // Form Builder service for Reactive forms
     public toastr: ToastrService  // Toastr service for alert message
   ) { }
 
- 
+
   ngOnInit() {
     this.crudApi.GetAppointmentsList();  // Call GetStudentsList() before main form is being called
     this.applicationFormFunction();              // Call student form when component is ready
@@ -28,12 +27,12 @@ export class AddStudentComponent implements OnInit {
   // Reactive student form
   applicationFormFunction() {
     this.applicationForm = this.fb.group({
-      ailment: ['', [Validators.required, Validators.minLength(2)]],
+      ailment: [''],
       date: [''],
-      doctorID: ['', [Validators.required,Validators.minLength(2)]],
-      patientID: ['', [Validators.required, Validators.minLength(2)]],
-      status: ['', Validators.required]
-    })  
+      doctorID: [''],
+      patientID: [''],
+      status: ['']
+    });
   }
 
   // Accessing form control using getters
@@ -42,28 +41,41 @@ export class AddStudentComponent implements OnInit {
   }
 
   get date() {
-    return this.applicationForm.get('date');
+    if (this.applicationForm.get('date')) {
+      return this.applicationForm.get('date');
+    }
+    return null;
   }
 
   get doctorID() {
+    if (this.applicationForm.get('doctorID')) {
     return this.applicationForm.get('doctorID');
+    }
+    return null;
   }
 
   get patientID() {
+    if (this.applicationForm.get('patientID')) {
     return this.applicationForm.get('patientID');
-  }  
+    }
+    return null;
+  }
   get status() {
-    return this.applicationForm.get('status');
+      if (this.applicationForm.get('status')) {
+        return this.applicationForm.get('status');
+      }
+      return 1;
   }
 
   // Reset student form's values
   ResetForm() {
     this.applicationForm.reset();
-  }  
- 
+  }
+
   submitAppointmentData() {
     this.crudApi.AddAppointment(this.applicationForm.value); // Submit student data using CRUD API
-    this.toastr.success(this.applicationForm.controls['ailment'].value + ' successfully added!'); // Show success message when data is successfully submited
+    this.toastr.success(this.applicationForm.controls['ailment'].value +
+    ' successfully added!'); // Show success message when data is successfully submited
     this.ResetForm();  // Reset form when clicked on reset button
    };
 

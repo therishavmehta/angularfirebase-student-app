@@ -11,11 +11,11 @@ import { ToastrService } from 'ngx-toastr';      // Alert message using NGX toas
 })
 
 export class StudentsListComponent implements OnInit {
-  p: number = 1;                      // Fix for AOT compilation error for NGX pagination
+  p = 1;                      // Fix for AOT compilation error for NGX pagination
   Appointment: Appointment[];                 // Save students data in Student's array.
-  hideWhenNoAppointment: boolean = false; // Hide students data table when no student.
-  noData: boolean = false;            // Showing No Student Message, when no student in database.
-  preLoader: boolean = true;          // Showing Preloader to show user data is coming for you from thre server(A tiny UX Shit)
+  hideWhenNoAppointment = false; // Hide students data table when no student.
+  noData = false;            // Showing No Student Message, when no student in database.
+  preLoader = true;          // Showing Preloader to show user data is coming for you from thre server(A tiny UX Shit)
   constructor(
     public crudApi: CrudService, // Inject student CRUD services in constructor.
     public toastr: ToastrService // Toastr service for alert message
@@ -29,7 +29,7 @@ export class StudentsListComponent implements OnInit {
       this.Appointment = [];
       data.forEach(item => {
         const a = item.payload.toJSON();
-        this.crudApi.getPatientById(a['patientID'])
+        this.crudApi.getPatients()
         .valueChanges().subscribe(datas => {
           for (let i = 0; i < datas.length; i++) {
             if (datas[i].email.includes(a['patientID'])) {
@@ -40,9 +40,7 @@ export class StudentsListComponent implements OnInit {
         this.crudApi.getDoctorList().snapshotChanges().subscribe(doctor => {
           doctor.forEach(items => {
           for (let i = 0; i < doctor.length; i++) {
-            if (a['doctorID'] === items.key) {
-                a['doctor'] = items.payload.toJSON();
-            }
+            a['doctorID'] != null ? a['doctor'] = items.payload.toJSON() : a['doctor'] = {employeeName: 'NotAssigned'};
             }
           });
         });
@@ -53,7 +51,8 @@ export class StudentsListComponent implements OnInit {
     });
   }
 
-  // Using valueChanges() method to fetch simple list of students data. It updates the state of hideWhenNoStudent, noData & preLoader variables when any changes occurs in student data list in real-time.
+  // Using valueChanges() method to fetch simple list of students data.
+// It updates the state of hideWhenNoStudent, noData & preLoader variables when any changes occurs in student data list in real-time.
   dataState() {
     this.crudApi.GetAppointmentsList().valueChanges().subscribe(data => {
       this.preLoader = false;
@@ -75,5 +74,4 @@ export class StudentsListComponent implements OnInit {
       this.toastr.success(appointment.ailment + ' successfully deleted!'); // Alert message will show up when student successfully deleted.
     }
   }
-
 }
