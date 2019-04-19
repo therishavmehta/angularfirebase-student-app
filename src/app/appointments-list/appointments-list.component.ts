@@ -5,12 +5,12 @@ import { ToastrService } from 'ngx-toastr';      // Alert message using NGX toas
 
 
 @Component({
-  selector: 'app-students-list',
-  templateUrl: './students-list.component.html',
-  styleUrls: ['./students-list.component.css']
+  selector: 'app-appointments-list',
+  templateUrl: './appointments-list.component.html',
+  styleUrls: ['./appointments-list.component.css']
 })
 
-export class StudentsListComponent implements OnInit {
+export class AppointmentsListComponent implements OnInit {
   p = 1;                      // Fix for AOT compilation error for NGX pagination
   Appointment: Appointment[];                 // Save students data in Student's array.
   hideWhenNoAppointment = false; // Hide students data table when no student.

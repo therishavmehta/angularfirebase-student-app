@@ -5,13 +5,13 @@ import { ToastrService } from 'ngx-toastr'; // Alert message using NGX toastr
 
 
 @Component({
-  selector: 'app-add-student',
-  templateUrl: './add-student.component.html',
-  styleUrls: ['./add-student.component.css']
+  selector: 'app-add-appointment',
+  templateUrl: './add-appointment.component.html',
+  styleUrls: ['./add-appointment.component.css']
 })
 
-export class AddStudentComponent implements OnInit {
-  public applicationForm: FormGroup;  // Define FormGroup to student's form
+export class AddAppointmentComponent implements OnInit {
+  public applicationForm: FormGroup;  // Define FormGroup to Appointment's form
   public final: string;
   constructor(
     public crudApi: CrudService,  // CRUD API services
@@ -21,11 +21,11 @@ export class AddStudentComponent implements OnInit {
 
 
   ngOnInit() {
-    this.crudApi.GetAppointmentsList();  // Call GetStudentsList() before main form is being called
-    this.applicationFormFunction();              // Call student form when component is ready
+    this.crudApi.GetAppointmentsList();  // Call GetAppointmentsList() before main form is being called
+    this.applicationFormFunction();              // Call Appointment form when component is ready
   }
 
-  // Reactive student form
+  // Reactive Appointment form
   applicationFormFunction() {
     var sendate = new Date();
       this.final = sendate.getFullYear().toString() + "-" + sendate.getMonth().toString() + "-" + sendate.getDate().toString();
@@ -71,13 +71,13 @@ export class AddStudentComponent implements OnInit {
       return 1;
   }
 
-  // Reset student form's values
+  // Reset Appointment form's values
   ResetForm() {
     this.applicationForm.reset();
   }
 
   submitAppointmentData() {
-    this.crudApi.AddAppointment(this.applicationForm.value); // Submit student data using CRUD API
+    this.crudApi.AddAppointment(this.applicationForm.value); // Submit Appointment data using CRUD API
     this.toastr.success(this.applicationForm.controls['ailment'].value +
     ' successfully added!'); // Show success message when data is successfully submited
     this.ResetForm();  // Reset form when clicked on reset button

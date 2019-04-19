@@ -4,8 +4,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 
 // Components
-import { AddStudentComponent } from './add-student/add-student.component';
-import { StudentsListComponent } from './students-list/students-list.component';
+import { AddAppointmentComponent } from './add-appointment/add-appointment.component';
+import { AppointmentsListComponent } from './appointments-list/appointments-list.component';
 import { EditAppointmentComponent } from './edit-appointment/edit-appointment.component';
 
 // Reactive Form Module
@@ -35,8 +35,8 @@ import {MaterialModule} from './material.module';
 @NgModule({
   declarations: [
     AppComponent,
-    AddStudentComponent,
-    StudentsListComponent,
+    AddAppointmentComponent,
+    AppointmentsListComponent,
     EditAppointmentComponent,
     AdminProfileComponent,
 ],

@@ -52,7 +52,7 @@
           <td>{{appointment.patient.name}}</td>
           <td>{{appointment.doctor.employeeName}}</td>
           <td class="text-center action-block">
-            <i class="far fa-edit" routerLink="/edit-student/{{appointment.$key}}"></i></td>
+            <i class="far fa-edit" routerLink="/edit-appointment/{{appointment.$key}}"></i></td>
            <td> <i class="far fa-trash-alt" (click)="deleteAppointment(appointment)"></i></td>
         </tr>
       </tbody>
