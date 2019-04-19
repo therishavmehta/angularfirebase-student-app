@@ -7,9 +7,9 @@
   
   <ul class="navbar-nav px-3">
     <li class="nav-item text-nowrap">
-      <a class="nav-link" routerLink="/register-student">
-        <span class="user-image" style="background-image: url('assets/user.jpg')"></span>
-        Admin
+      <a class="nav-link" routerLink="/admin-profile">
+      <span class="user-image" [ngStyle]="{'background-image':' url(' + data.profilePic + ')'}"></span>
+        {{ data.name }}
       </a>
     </li>
   </ul>

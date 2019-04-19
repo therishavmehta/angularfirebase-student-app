@@ -15,17 +15,17 @@
           <p *ngIf="ailment.errors?.minlength" class="error"><sup>*</sup>Ailment shouldn't be less than 2 words</p>
         </div>
       </div>
-      <div class="row">
+      <!-- <div class="row">
         <div class="col-md-12 mb-3">
           <label>Date</label>
           <input type="date" formControlName="date" class="form-control">
         </div>
-      </div>
+      </div> -->
 
       <div class="row">
         <div class="col-md-12 mb-3">
           <label>Doctor</label>
-          <input type="email" formControlName="doctorID" class="form-control" required>
+          <input type="text" formControlName="doctorID" class="form-control">
         </div>
 
         <!-- <div class="col-md-12 mb-3">
@@ -47,7 +47,7 @@
       </div>
       <div class="row">
         <div class="col-md-12 mb-3">
-          <label>Status</label>
+          <label>status</label>
           <input type="number" formControlName="status" class="form-control">
         </div>
       </div>

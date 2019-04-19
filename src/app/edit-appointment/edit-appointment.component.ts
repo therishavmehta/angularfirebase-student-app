@@ -8,13 +8,13 @@ import {Observable} from 'rxjs';
 import Doctor from 'src/app/shared/doctor';
 import {startWith, map } from 'rxjs/operators';
 @Component({
-  selector: 'app-edit-student',
-  templateUrl: './edit-student.component.html',
-  styleUrls: ['./edit-student.component.css']
+  selector: 'app-edit-appointment',
+  templateUrl: './edit-appointment.component.html',
+  styleUrls: ['./edit-appointment.component.css']
 })
 
-export class EditStudentComponent implements OnInit {
-  editForm: FormGroup;  // Define FormGroup to student's edit form
+export class EditAppointmentComponent implements OnInit {
+  editForm: FormGroup;  // Define FormGroup to appointment's edit form
   constructor(
     private crudApi: CrudService,       // Inject CRUD API in constructor
     private fb: FormBuilder,            // Inject Form Builder service for Reactive forms
@@ -42,7 +42,7 @@ export class EditStudentComponent implements OnInit {
   //   map(val => this._filter(val))
   // );
   //   console.log(s);
-    this.updateAppointmentData();   // Call updateStudentData() as soon as the component is ready
+    this.updateAppointmentData();   // Call updateappointmentData() as soon as the component is ready
     const id = this.actRoute.snapshot.paramMap.get('id');  // Getting current component's id or information using ActivatedRoute service
     this.crudApi.GetAppointment(id).valueChanges().subscribe(data => {
       this.editForm.setValue(data); // Using SetValue() method, It's a ReactiveForm's API to store intial value of reactive form
@@ -92,10 +92,10 @@ export class EditStudentComponent implements OnInit {
 
   // Below methods fire when somebody click on submit button
   updateForm() {
-    this.crudApi.UpdateAppointment(this.editForm.value);       // Update student data using CRUD API
+    this.crudApi.UpdateAppointment(this.editForm.value);       // Update appointment data using CRUD API
     this.toastr.success(this.editForm.controls['ailment'].value +
      ' updated successfully');   // Show succes message when data is successfully submited
-    this.router.navigate(['view-students']);               // Navigate to student's list page when student data is updated
+    this.router.navigate(['view-appointments']);               // Navigate to appointment's list page when appointment data is updated
   }
 
 }

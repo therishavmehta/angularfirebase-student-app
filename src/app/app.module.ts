@@ -1,10 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
 
 // Components
 import { AddStudentComponent } from './add-student/add-student.component';
 import { StudentsListComponent } from './students-list/students-list.component';
-import { EditStudentComponent } from './edit-student/edit-student.component';
+import { EditAppointmentComponent } from './edit-appointment/edit-appointment.component';
 
 // Reactive Form Module
 import { ReactiveFormsModule } from '@angular/forms';
@@ -23,8 +25,11 @@ import { ToastrModule } from 'ngx-toastr';
 
 // NGX Pagination
 import { NgxPaginationModule } from 'ngx-pagination';
-
+import {AdminProfileComponent} from './admin-profile/admin-profile.component';
 import { AppComponent } from './app.component';
+import {MaterialModule} from './material.module';
+
+
 
 
 @NgModule({
@@ -32,13 +37,17 @@ import { AppComponent } from './app.component';
     AppComponent,
     AddStudentComponent,
     StudentsListComponent,
-    EditStudentComponent
-  ],
+    EditAppointmentComponent,
+    AdminProfileComponent,
+],
   imports: [
+  MaterialModule,
+    NgbModule,
     BrowserModule,
     AngularFireModule.initializeApp(environment.firebase), // Main Angular fire module 
     AngularFireDatabaseModule,  // Firebase database module 
-    ReactiveFormsModule,        // Reactive forms module
+    ReactiveFormsModule, 
+    BrowserModule, 
     AppRoutingModule,           // Main routing module
     BrowserAnimationsModule,    // Required animations module for Toastr
     ToastrModule.forRoot({      // Register NgxToast NPM module
@@ -48,7 +57,10 @@ import { AppComponent } from './app.component';
     }),
     NgxPaginationModule  // NGX pagination module
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  exports: [MaterialModule],
+  entryComponents: [AppComponent,AdminProfileComponent, EditAppointmentComponent],
+  providers: [],  
+  bootstrap: [AppComponent, EditAppointmentComponent],
+
 })
 export class AppModule { }

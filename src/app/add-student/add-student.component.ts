@@ -12,6 +12,7 @@ import { ToastrService } from 'ngx-toastr'; // Alert message using NGX toastr
 
 export class AddStudentComponent implements OnInit {
   public applicationForm: FormGroup;  // Define FormGroup to student's form
+  public final: string;
   constructor(
     public crudApi: CrudService,  // CRUD API services
     public fb: FormBuilder,       // Form Builder service for Reactive forms
@@ -26,9 +27,12 @@ export class AddStudentComponent implements OnInit {
 
   // Reactive student form
   applicationFormFunction() {
+    var sendate = new Date();
+      this.final = sendate.getFullYear().toString() + "-" + sendate.getMonth().toString() + "-" + sendate.getDate().toString();
+      console.log(this.final);
     this.applicationForm = this.fb.group({
       ailment: [''],
-      date: [''],
+      date: [this.final],
       doctorID: [''],
       patientID: [''],
       status: ['']

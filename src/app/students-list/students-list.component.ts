@@ -24,31 +24,38 @@ export class StudentsListComponent implements OnInit {
 
   ngOnInit() {
     this.dataState(); // Initialize student's list, when component is ready
-    const s = this.crudApi.GetAppointmentsList();
-    s.snapshotChanges().subscribe(data => { // Using snapshotChanges() method to retrieve list of data along with metadata($key)
+    const appointmentList = this.crudApi.GetAppointmentsList();
+    appointmentList.snapshotChanges().subscribe(data => { // Using snapshotChanges() method to retrieve list of data along with metadata($key)
       this.Appointment = [];
-      data.forEach(item => {
-        const a = item.payload.toJSON();
+      data.forEach(appointments => {
+        const currentAppointment = appointments.payload.toJSON();
         this.crudApi.getPatients()
-        .valueChanges().subscribe(datas => {
-          for (let i = 0; i < datas.length; i++) {
-            if (datas[i].email.includes(a['patientID'])) {
-                a['patient'] = datas[i];
-            }
-          }
-        });
-        this.crudApi.getDoctorList().snapshotChanges().subscribe(doctor => {
-          doctor.forEach(items => {
+            .valueChanges().subscribe(datas => {
+                for (let i = 0; i < datas.length; i++) {
+                  if(datas[i].email.includes(currentAppointment['patientID'])) {
+                   currentAppointment['patient'] = datas[i];
+                 }
+                }
+                if(!currentAppointment['patient']){
+                   currentAppointment['patient'] = {name: currentAppointment['patientID']};
+                }
+            });
+        this.crudApi.getDoctorList()
+        .snapshotChanges().subscribe(doctor => {
           for (let i = 0; i < doctor.length; i++) {
-            a['doctorID'] != null ? a['doctor'] = items.payload.toJSON() : a['doctor'] = {employeeName: 'NotAssigned'};
-            }
+            if(doctor[i].key.includes(currentAppointment['doctorID'])) {
+             currentAppointment['doctor'] = doctor[i].payload.toJSON();
+           }
+          }
+          if(!currentAppointment['doctor']){
+             currentAppointment['doctor'] = {employeeName: currentAppointment['doctorID']};
+          }
           });
+        
+        currentAppointment['$key'] = appointments.key;
+        this.Appointment.push(currentAppointment as Appointment);
         });
-        a['$key'] = item.key;
-        console.log(a);
-        this.Appointment.push(a as Appointment);
       });
-    });
   }
 
   // Using valueChanges() method to fetch simple list of students data.
