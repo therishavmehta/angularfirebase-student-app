@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import Schedule from '../shared/schedule';
-import { Appointment } from '../shared/appointment';  // Student data type interface class
+import { Appointment } from '../shared/appointment';  // Appointment data type interface class
 import { AngularFireDatabase, AngularFireList,
   AngularFireObject } from '@angular/fire/database';  // Firebase modules for Database, Data list and Single object
 
@@ -9,7 +9,7 @@ import { AngularFireDatabase, AngularFireList,
 })
 
 export class CrudService {
-  appointmentsRef: AngularFireList<any>;    // Reference to Student data list, its an Observable
+  appointmentsRef: AngularFireList<any>;    // Reference to Appointment data list, its an Observable
   appointmentRef: AngularFireObject<any>;
   patientRef: AngularFireObject<any>;
   scheduleRef: AngularFireObject<any>;
@@ -17,23 +17,24 @@ export class CrudService {
   doctorRef: AngularFireObject<any>;
   patientName: AngularFireObject<any>;
   patientsRef: AngularFireList<any>;
-  doctorsRef: AngularFireList<any>; // Reference to Student object, its an Observable too
+  doctorsRef: AngularFireList<any>; // Reference to Appointment object, its an Observable too
   // Inject AngularFireDatabase Dependency in Constructor
   constructor(private db: AngularFireDatabase) { }
 
-  // Create Student
+  // Create Appointment
   AddAppointment(appointment: Appointment) {
     this.appointmentsRef.push({
       ailment: appointment.ailment,
-      date: appointment.date,
-      doctorID: appointment.doctorID ?appointment.doctorID: "-" ,
+      creationDate: appointment.creationDate,
+      appprovedDate: appointment.approvedDate ? appointment.approvedDate: "-",
+      doctorID: appointment.doctorID ? appointment.doctorID: "-" ,
       patientID: appointment.patientID,
       status: appointment.status
     });
   }
-  addSchedule(schedule: Schedule){
-    this.scheduleRef = this.db.object('doctors/' + id + '/schedule');
-  }
+  // addSchedule(schedule: Schedule){
+  //   this.scheduleRef = this.db.object('doctors/' + id + '/schedule');
+  // }
   getAdmin() {
     this.adminRef = this.db.object('admin/data');
     return this.adminRef;
@@ -41,26 +42,30 @@ export class CrudService {
   getPatientByName(appointment: Appointment) {
 
   }
+  getPatientList() {
+    this.patientsRef = this.db.list('patients');
+    return this.patientsRef;
+  }
   getPatients() {
     this.patientsRef = this.db.list('patients');
     return this.patientsRef;
 
   }
   getDoctorById(id: string) {
-    return this.db.object('doctors/'+id);
+    return this.db.object('doctors/' + id);
   }
   getDoctorList() {
     this.doctorsRef = this.db.list('doctors');
     return this.doctorsRef;
   }
 
-  // Fetch Single Student Object
+  // Fetch Single Appointment Object
   GetAppointment(id: string) {
     this.appointmentRef = this.db.object('appointments/' + id);
     return this.appointmentRef;
   }
 
-  // Fetch Students List
+  // Fetch Appointments List
   GetAppointmentsList() {
     this.appointmentsRef = this.db.list('appointments');
     return this.appointmentsRef;
@@ -69,14 +74,15 @@ export class CrudService {
      this.doctorRef = this.getDoctorById(id);
      this.scheduleRef = this.doctorRef;
    }
-  // Update Student Object
+  // Update Appointment Object
   UpdateAppointment(appointment: Appointment) {
     this.appointmentRef.update({
+      status: appointment.status,
       doctorID: appointment.doctorID
     });
   }
 
-  // Delete Student Object
+  // Delete Appointment Object
   DeleteAppointment(id: string) {
     this.appointmentRef = this.db.object('appointments/' + id);
     this.appointmentRef.remove();

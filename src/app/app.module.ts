@@ -17,18 +17,21 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { environment } from '../environments/environment';
 
 // Router Module
-import { AppRoutingModule } from './/app-routing.module';
+import { AppRoutingModule } from './app-routing.module';
 
 // Toaster for Alert Messages
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
-
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { FormsModule } from '@angular/forms';
 // NGX Pagination
 import { NgxPaginationModule } from 'ngx-pagination';
 import {AdminProfileComponent} from './admin-profile/admin-profile.component';
 import { AppComponent } from './app.component';
 import {MaterialModule} from './material.module';
-
+import { CreatePatientComponent } from './create-patient/create-patient.component';
+import {DoctorDetailsComponent} from './doctor-details/doctor-details.component';
+import {PatientDetailsComponent} from './patient-details/patient-details.component';
 
 
 
@@ -39,6 +42,9 @@ import {MaterialModule} from './material.module';
     AppointmentsListComponent,
     EditAppointmentComponent,
     AdminProfileComponent,
+    CreatePatientComponent,
+    DoctorDetailsComponent,
+    PatientDetailsComponent
 ],
   imports: [
   MaterialModule,
@@ -47,7 +53,9 @@ import {MaterialModule} from './material.module';
     AngularFireModule.initializeApp(environment.firebase), // Main Angular fire module 
     AngularFireDatabaseModule,  // Firebase database module 
     ReactiveFormsModule, 
-    BrowserModule, 
+    BrowserModule,
+    FormsModule,
+     Ng2SearchPipeModule,
     AppRoutingModule,           // Main routing module
     BrowserAnimationsModule,    // Required animations module for Toastr
     ToastrModule.forRoot({      // Register NgxToast NPM module

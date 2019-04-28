@@ -1,0 +1,61 @@
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+  <h1 class="h2">Doctor Details</h1>
+  <!-- It won't show if there is no doctor data -->
+  <a routerLink="/add-appointment" class="btn btn-success" *ngIf="hideWhenNoPatient">
+    <i class="fas fa-plus custom-fa-plus"></i>
+    Add Doctor
+  </a>
+</div>
+
+<div class="pricing-header mx-auto">
+<div class="search-hero">
+      <input class="form-control" type="text" name="search" [(ngModel)]="searchDoctor" autocomplete="off" placeholder="Search by Id, Name, Designation, email, Department, Contact">
+    </div>
+  <!-- Preloader shows before the data loads-->
+  <div class="no-data text-center" *ngIf="preLoader">
+    <img src="assets/preloader.gif" class="preloader-icon" alt="No Doctor">
+  </div>
+
+  <!-- No data shows when their is no doctor data available -->
+  <div class="no-data text-center" *ngIf="noData">
+    <img src="assets/no-doctor.svg" class="nodata-msg" alt="No doctor">
+    <p class="nodata-msg">No Doctor yet!</p>
+    <a routerLink="/add-appointment" class="btn btn-success">
+      <i class="fas fa-plus custom-fa-plus"></i>
+      Add Doctor
+    </a>
+  </div>
+
+  <!-- Showing doctors data -->
+  <div class="table-responsive" *ngIf="hideWhenNoDoctor">
+    <table class="table table-bordered table-responsive-sm table-responsive-md table-responsive-lg">
+      <thead>
+        <tr>
+          <th scope="col">Doctor ID</th>
+          <th scope="col">Doctor Name</th>
+          <th scope="col">Doctor Designation</th>
+          <th scope="col">Doctor Department</th>
+          <th scope="col">Doctor Email</th>
+          <th scope="col">Contact</th>
+          <th scope="col">Short Code</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- *ngFor loop iterates over doctor array and fetch the doctor's data -->
+        <!-- paginate pipe will add pagination in doctor's list, it won't show if items are less then 7 -->
+        <tr *ngFor="let doctor of Doctor | filter:searchDoctor | paginate: { itemsPerPage: 10, currentPage: p }; let i = index;">
+          <th scope="row">{{doctor.$key}}</th>
+          <td>{{doctor.employeeName}}</td>
+          <td>{{doctor.designation}}</td>          
+          <td>{{doctor.department}}</td>
+          <td>{{doctor.email}}</td>
+          <td>{{doctor.mobile}}</td>
+          <td>{{doctor.shortCode}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <!-- Pagination -->
+  <pagination-controls (pageChange)="p = $event" autoHide="true" responsive="true"></pagination-controls>
+
+</div>

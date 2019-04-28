@@ -1,0 +1,53 @@
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+  <h1 class="h2">Patient Details</h1>
+  <!-- It won't show if there is no student data -->
+  <a routerLink="/add-appointment" class="btn btn-success" *ngIf="hideWhenNoPatient">
+    <i class="fas fa-plus custom-fa-plus"></i>
+    Add Patient
+  </a>
+</div>
+
+<div class="pricing-header mx-auto">
+<div class="search-hero">
+      <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Search by Id, Name and Email">
+    </div>
+  <!-- Preloader shows before the data loads-->
+  <div class="no-data text-center" *ngIf="preLoader">
+    <img src="assets/preloader.gif" class="preloader-icon" alt="No Patient">
+  </div>
+
+  <!-- No data shows when their is no student data available -->
+  <div class="no-data text-center" *ngIf="noData">
+    <img src="assets/no-student.svg" class="nodata-msg" alt="No student">
+    <p class="nodata-msg">No Patient yet!</p>
+    <a routerLink="/add-appointment" class="btn btn-success">
+      <i class="fas fa-plus custom-fa-plus"></i>
+      Add Patient
+    </a>
+  </div>
+
+  <!-- Showing students data -->
+  <div class="table-responsive" *ngIf="hideWhenNoPatient">
+    <table class="table table-bordered table-responsive-sm table-responsive-md table-responsive-lg">
+      <thead>
+        <tr>
+          <th scope="col">Patient ID</th>
+          <th scope="col">Patient Name</th>
+          <th scope="col">Patient Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- *ngFor loop iterates over Student array and fetch the student's data -->
+        <!-- paginate pipe will add pagination in student's list, it won't show if items are less then 7 -->
+        <tr *ngFor="let patient of Patient | filter:searchText | paginate: { itemsPerPage: 7, currentPage: p }; let i = index;">
+          <th scope="row">{{patient.$key}}</th>
+          <td>{{patient.name}}</td>
+          <td>{{patient.email}}</td>          
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <!-- Pagination -->
+  <pagination-controls (pageChange)="p = $event" autoHide="true" responsive="true"></pagination-controls>
+
+</div>

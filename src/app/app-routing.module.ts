@@ -8,6 +8,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { AddAppointmentComponent } from './add-appointment/add-appointment.component';
 import { AppointmentsListComponent } from './appointments-list/appointments-list.component';
 import { EditAppointmentComponent } from './edit-appointment/edit-appointment.component';
+import {DoctorDetailsComponent } from './doctor-details/doctor-details.component';
+import {PatientDetailsComponent } from './patient-details/patient-details.component';
 // import {AdminProfileComponent} from './admin-profile/admin-profile.component';
 // Routes array define component along with the path name for url
 const routes: Routes = [
@@ -15,6 +17,8 @@ const routes: Routes = [
   { path: 'add-appointment', component: AddAppointmentComponent },
   { path: 'view-appointments', component: AppointmentsListComponent },
   { path: 'edit-appointment/:id', component: EditAppointmentComponent },
+  { path: 'doctor-list', component: DoctorDetailsComponent  },
+  { path: 'patient-list', component: PatientDetailsComponent  },
   // {path: 'admin-profile', component: AdminProfileComponent}
 ];
 

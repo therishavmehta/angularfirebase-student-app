@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import {Observable} from 'rxjs';
 import Doctor from 'src/app/shared/doctor';
 import {startWith, map } from 'rxjs/operators';
+import Status from '../shared/status';
 @Component({
   selector: 'app-edit-appointment',
   templateUrl: './edit-appointment.component.html',
@@ -22,6 +23,11 @@ export class EditAppointmentComponent implements OnInit {
     private actRoute: ActivatedRoute,   // Activated route to get the current component's inforamation
     private router: Router,             // Router service to navigate to specific component
     private toastr: ToastrService,
+    // options: Status[] = 
+    // [{name: "Reject", value: 0},
+    // {name: "Pending", value: 1},
+    // {name: "Accept", value: 2},
+    // ]
            // Toastr service for alert message
   ) { }
   doctorList: Doctor[] = [];
@@ -81,7 +87,7 @@ export class EditAppointmentComponent implements OnInit {
       date: [''],
       doctorID: [''],
       patientID: [''],
-      status: ['']
+      status: []
     });
   }
 

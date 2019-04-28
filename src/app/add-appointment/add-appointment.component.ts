@@ -32,7 +32,8 @@ export class AddAppointmentComponent implements OnInit {
       console.log(this.final);
     this.applicationForm = this.fb.group({
       ailment: [''],
-      date: [this.final],
+      creationDate: [this.final],
+      approvedDate: [''],
       doctorID: [''],
       patientID: [''],
       status: ['']
@@ -44,9 +45,15 @@ export class AddAppointmentComponent implements OnInit {
     return this.applicationForm.get('ailment');
   }
 
-  get date() {
-    if (this.applicationForm.get('date')) {
-      return this.applicationForm.get('date');
+  get creationDate() {
+    if (this.applicationForm.get('creationDate')) {
+      return this.applicationForm.get('creationDate');
+    }
+    return null;
+  }
+  get approvedDate() {
+    if (this.applicationForm.get('approvedDate')) {
+      return this.applicationForm.get('approvedDate');
     }
     return null;
   }
@@ -77,6 +84,7 @@ export class AddAppointmentComponent implements OnInit {
   }
 
   submitAppointmentData() {
+    console.log(this.applicationForm.value);
     this.crudApi.AddAppointment(this.applicationForm.value); // Submit Appointment data using CRUD API
     this.toastr.success(this.applicationForm.controls['ailment'].value +
     ' successfully added!'); // Show success message when data is successfully submited

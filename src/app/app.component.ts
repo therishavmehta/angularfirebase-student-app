@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatAutocompleteModule } from '@angular/material';
-import { EditStudentComponent } from './edit-student/edit-student.component';
+import { EditAppointmentComponent } from './edit-appointment/edit-appointment.component';
 import { CommonModule } from '@angular/common';
 import Profile from './shared/profile';
 import { CrudService } from './shared/crud.service';  // CRUD API service class
@@ -33,7 +33,6 @@ export class AppComponent implements OnInit {
 	ngOnInit() {
 		const profileData = this.crudApi.getAdmin();
 		profileData.valueChanges().subscribe(adminProfile => {
-			console.log(adminProfile);
 			this.data = adminProfile;
 		});
 	}

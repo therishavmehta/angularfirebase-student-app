@@ -1,8 +1,9 @@
 export interface Appointment {
    $key: string;
    ailment: string;
-   date: string;
+   creationDate: string;
+   approvedDate: string;
    doctorID: string;
    patientID: string;
-   status: Number;
+   status: number;
 }

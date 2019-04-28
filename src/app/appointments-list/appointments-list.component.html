@@ -1,30 +1,32 @@
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
   <h1 class="h2">Appointment Details</h1>
-  <!-- It won't show if there is no student data -->
-  <a routerLink="/register-student" class="btn btn-success" *ngIf="hideWhenNoStudent">
+  <!-- It won't show if there is no appointment data -->
+  <a routerLink="/register-appointment" class="btn btn-success" *ngIf="hideWhenNoappointment">
     <i class="fas fa-plus custom-fa-plus"></i>
     Add Appointment
   </a>
 </div>
 
 <div class="pricing-header mx-auto">
-
+<div class="search-hero">
+      <input class="form-control" type="text" name="search" [(ngModel)]="searchAppointment" autocomplete="off" placeholder="Search by ailment, Id, username">
+    </div>
   <!-- Preloader shows before the data loads-->
   <div class="no-data text-center" *ngIf="preLoader">
-    <img src="assets/preloader.gif" class="preloader-icon" alt="No student">
+    <img src="assets/preloader.gif" class="preloader-icon" alt="No Appointment">
   </div>
 
-  <!-- No data shows when their is no student data available -->
+  <!-- No data shows when their is no appointment data available -->
   <div class="no-data text-center" *ngIf="noData">
-    <img src="assets/no-student.svg" class="nodata-msg" alt="No student">
+    <img src="assets/no-appointment.svg" class="nodata-msg" alt="No Appointment">
     <p class="nodata-msg">No Appointment yet!</p>
-    <a routerLink="/register-student" class="btn btn-success">
+    <a routerLink="/register-appointment" class="btn btn-success">
       <i class="fas fa-plus custom-fa-plus"></i>
       Add Appointment
     </a>
   </div>
 
-  <!-- Showing students data -->
+  <!-- Showing appointments data -->
   <div class="table-responsive" *ngIf="hideWhenNoAppointment">
     <table class="table table-bordered table-responsive-sm table-responsive-md table-responsive-lg">
       <thead>
@@ -40,12 +42,12 @@
         </tr>
       </thead>
       <tbody>
-        <!-- *ngFor loop iterates over Student array and fetch the student's data -->
-        <!-- paginate pipe will add pagination in student's list, it won't show if items are less then 7 -->
-        <tr *ngFor="let appointment of Appointment | paginate: { itemsPerPage: 7, currentPage: p }; let i = index;">
+        <!-- *ngFor loop iterates over appointment array and fetch the appointment's data -->
+        <!-- paginate pipe will add pagination in appointment's list, it won't show if items are less then 7 -->
+        <tr *ngFor="let appointment of Appointment | filter:searchAppointment | paginate: { itemsPerPage: 7, currentPage: p }; let i = index;">
           <th scope="row">{{appointment.$key}}</th>
           <td>{{appointment.ailment}}</td>
-          <td>{{appointment.date}}</td>
+          <td>{{appointment.creationDate}}</td>
           <td *ngIf="appointment.status==2" style="color:green">Accepted</td>
           <td *ngIf="appointment.status==1" style="color:yellow">Pending</td>
           <td *ngIf="appointment.status==0" style="color:red">Rejected</td>
