@@ -27,9 +27,9 @@ export class AddAppointmentComponent implements OnInit {
 
   // Reactive Appointment form
   applicationFormFunction() {
-    var sendate = new Date();
-      this.final = sendate.getFullYear().toString() + "-" + sendate.getMonth().toString() + "-" + sendate.getDate().toString();
-      console.log(this.final);
+    const sendate = new Date();
+    this.final = sendate.getFullYear().toString() + '-' + sendate.getMonth().toString() + '-' + sendate.getDate().toString();
+    console.log(this.final);
     this.applicationForm = this.fb.group({
       ailment: [''],
       creationDate: [this.final],
@@ -60,22 +60,22 @@ export class AddAppointmentComponent implements OnInit {
 
   get doctorID() {
     if (this.applicationForm.get('doctorID')) {
-    return this.applicationForm.get('doctorID');
+      return this.applicationForm.get('doctorID');
     }
     return null;
   }
 
   get patientID() {
     if (this.applicationForm.get('patientID')) {
-    return this.applicationForm.get('patientID');
+      return this.applicationForm.get('patientID');
     }
     return null;
   }
   get status() {
-      if (this.applicationForm.get('status')) {
-        return this.applicationForm.get('status');
-      }
-      return 1;
+    if (this.applicationForm.get('status')) {
+      return this.applicationForm.get('status');
+    }
+    return 1;
   }
 
   // Reset Appointment form's values
@@ -87,8 +87,7 @@ export class AddAppointmentComponent implements OnInit {
     console.log(this.applicationForm.value);
     this.crudApi.AddAppointment(this.applicationForm.value); // Submit Appointment data using CRUD API
     this.toastr.success(this.applicationForm.controls['ailment'].value +
-    ' successfully added!'); // Show success message when data is successfully submited
+      ' successfully added!'); // Show success message when data is successfully submited
     this.ResetForm();  // Reset form when clicked on reset button
-   };
-
+  }
 }

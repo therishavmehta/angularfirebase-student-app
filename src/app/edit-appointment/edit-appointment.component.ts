@@ -4,9 +4,9 @@ import { CrudService } from '../shared/crud.service';
 import { ActivatedRoute, Router } from '@angular/router'; // ActivatedRoue is used to get the current associated components information.
 import { Location } from '@angular/common';  // Location service is used to go back to previous component
 import { ToastrService } from 'ngx-toastr';
-import {Observable} from 'rxjs';
+import { Observable } from 'rxjs';
 import Doctor from 'src/app/shared/doctor';
-import {startWith, map } from 'rxjs/operators';
+import { startWith, map } from 'rxjs/operators';
 import Status from '../shared/status';
 @Component({
   selector: 'app-edit-appointment',
@@ -23,31 +23,31 @@ export class EditAppointmentComponent implements OnInit {
     private actRoute: ActivatedRoute,   // Activated route to get the current component's inforamation
     private router: Router,             // Router service to navigate to specific component
     private toastr: ToastrService,
-    // options: Status[] = 
+    // options: Status[] =
     // [{name: "Reject", value: 0},
     // {name: "Pending", value: 1},
     // {name: "Accept", value: 2},
     // ]
-           // Toastr service for alert message
+    // Toastr service for alert message
   ) { }
   doctorList: Doctor[] = [];
-    filteredOptions: Observable<any[]>;
+  filteredOptions: Observable<any[]>;
   ngOnInit() {
-  //   const s = this.crudApi.getDoctorList();
-  //   s.snapshotChanges().subscribe(data => { // Using snapshotChanges() method to retrieve list of data along with metadata($key)
-  //     data.forEach(item => {
-  //       const val = item.payload.toJSON();
-  //       val['$key'] = item.key;
-  //       this.doctorList.push(val as Doctor);
-  //       });
-  //       console.log(this.doctorList);
-  //   });
-  //   this.filteredOptions = this.editForm.valueChanges
-  // .pipe(
-  //   startWith(''),
-  //   map(val => this._filter(val))
-  // );
-  //   console.log(s);
+    //   const s = this.crudApi.getDoctorList();
+    //   s.snapshotChanges().subscribe(data => { // Using snapshotChanges() method to retrieve list of data along with metadata($key)
+    //     data.forEach(item => {
+    //       const val = item.payload.toJSON();
+    //       val['$key'] = item.key;
+    //       this.doctorList.push(val as Doctor);
+    //       });
+    //       console.log(this.doctorList);
+    //   });
+    //   this.filteredOptions = this.editForm.valueChanges
+    // .pipe(
+    //   startWith(''),
+    //   map(val => this._filter(val))
+    // );
+    //   console.log(s);
     this.updateAppointmentData();   // Call updateappointmentData() as soon as the component is ready
     const id = this.actRoute.snapshot.paramMap.get('id');  // Getting current component's id or information using ActivatedRoute service
     this.crudApi.GetAppointment(id).valueChanges().subscribe(data => {
@@ -56,10 +56,10 @@ export class EditAppointmentComponent implements OnInit {
   }
   _filter(val) {
     if (this.doctorList) {
-    return this.doctorList.filter(option =>
-    option.employeeName.toLowerCase().includes(val.toLowerCase()));
-   }
- }
+      return this.doctorList.filter(option =>
+        option.employeeName.toLowerCase().includes(val.toLowerCase()));
+    }
+  }
   // Accessing form control using getters
   get ailment() {
     return this.editForm.get('ailment');
@@ -67,6 +67,10 @@ export class EditAppointmentComponent implements OnInit {
 
   get date() {
     return this.editForm.get('date');
+  }
+
+  get approvedDate() {
+    return this.editForm.get('approvedDate');
   }
 
   get doctorID() {
@@ -84,7 +88,8 @@ export class EditAppointmentComponent implements OnInit {
   updateAppointmentData() {
     this.editForm = this.fb.group({
       ailment: [''],
-      date: [''],
+      createdDate: [''],
+      approvedDate: [''],
       doctorID: [''],
       patientID: [''],
       status: []
@@ -100,7 +105,7 @@ export class EditAppointmentComponent implements OnInit {
   updateForm() {
     this.crudApi.UpdateAppointment(this.editForm.value);       // Update appointment data using CRUD API
     this.toastr.success(this.editForm.controls['ailment'].value +
-     ' updated successfully');   // Show succes message when data is successfully submited
+      ' updated successfully');   // Show succes message when data is successfully submited
     this.router.navigate(['view-appointments']);               // Navigate to appointment's list page when appointment data is updated
   }
 

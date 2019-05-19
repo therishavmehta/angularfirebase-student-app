@@ -20,46 +20,47 @@ export class AppointmentsListComponent implements OnInit {
   constructor(
     public crudApi: CrudService, // Inject Appointment CRUD services in constructor.
     public toastr: ToastrService // Toastr service for alert message
-    )  { }
+  ) { }
 
 
   ngOnInit() {
     this.dataState(); // Initialize Appointment's list, when component is ready
     const appointmentList = this.crudApi.GetAppointmentsList();
-    appointmentList.snapshotChanges().subscribe(data => { // Using snapshotChanges() method to retrieve list of data along with metadata($key)
+    appointmentList.snapshotChanges().subscribe(data => {
       this.Appointment = [];
       data.forEach(appointments => {
         const currentAppointment = appointments.payload.toJSON();
+        currentAppointment['approvedDate'] = currentAppointment['approvedDate'].slice(0, 10);
+        console.log(currentAppointment['approvedDate']);
         this.crudApi.getPatients()
-            .valueChanges().subscribe(datas => {
-                for (let i = 0; i < datas.length; i++) {
-                  if(datas[i].email.includes(currentAppointment['patientID'])) {
-                   currentAppointment['patient'] = datas[i];
-                 }
-                }
-                if(!currentAppointment['patient']){
-                   currentAppointment['patient'] = {name: currentAppointment['patientID']};
-                }
-            });
+          .valueChanges().subscribe(datas => {
+            for (let i = 0; i < datas.length; i++) {
+              if (datas[i].email.includes(currentAppointment['patientID'])) {
+                currentAppointment['patient'] = datas[i];
+              }
+            }
+            if (!currentAppointment['patient']) {
+              currentAppointment['patient'] = { name: currentAppointment['patientID'] };
+            }
+          });
         this.crudApi.getDoctorList()
-        .snapshotChanges().subscribe(doctor => {
-          for (let i = 0; i < doctor.length; i++) {
-            if(doctor[i].key.includes(currentAppointment['doctorID'])) {
-             currentAppointment['doctor'] = doctor[i].payload.toJSON();
-           }
-          }
-          if(!currentAppointment['doctor']){
-             currentAppointment['doctor'] = {employeeName: currentAppointment['doctorID']};
-          }
+          .snapshotChanges().subscribe(doctor => {
+            for (let i = 0; i < doctor.length; i++) {
+              if (doctor[i].key.includes(currentAppointment['doctorID'])) {
+                currentAppointment['doctor'] = doctor[i].payload.toJSON();
+              }
+            }
+            if (!currentAppointment['doctor']) {
+              currentAppointment['doctor'] = { employeeName: currentAppointment['doctorID'] };
+            }
           });
         currentAppointment['$key'] = appointments.key;
         this.Appointment.push(currentAppointment as Appointment);
-        });
       });
+    });
   }
 
   // Using valueChanges() method to fetch simple list of Appointments data.
-// It updates the state of hideWhenNoAppointment, noData & preLoader variables when any changes occurs in Appointment data list in real-time.
   dataState() {
     this.crudApi.GetAppointmentsList().valueChanges().subscribe(data => {
       this.preLoader = false;
@@ -78,7 +79,7 @@ export class AppointmentsListComponent implements OnInit {
   deleteAppointment(appointment) {
     if (window.confirm('Are sure you want to delete this Appointment ?')) { // Asking from user before Deleting Appointment data.
       this.crudApi.DeleteAppointment(appointment.$key); // Using Delete Appointment API to delete Appointment.
-      this.toastr.success(appointment.ailment + ' successfully deleted!'); // Alert message will show up when Appointment successfully deleted.
+      this.toastr.success(appointment.ailment + ' successfully deleted!');
     }
   }
 }
