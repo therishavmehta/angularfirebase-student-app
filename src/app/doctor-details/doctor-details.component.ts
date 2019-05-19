@@ -31,7 +31,6 @@ export class DoctorDetailsComponent implements OnInit {
         currentDoctor['$key'] = Doctors.key;
         this.Doctor.push(currentDoctor as Doctor);
         });
-      console.log(this.Doctor);
       });
   }
 

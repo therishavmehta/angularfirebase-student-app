@@ -40,7 +40,6 @@ export class PatientDetailsComponent implements OnInit {
         currentPatient['$key'] = Patients.key;
         this.Patient.push(currentPatient as Patient);
         });
-      console.log(this.Patient);
       });
     this.filteredOptions = this.myControl.valueChanges
       .pipe(

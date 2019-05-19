@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 // Components
@@ -26,12 +26,12 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { FormsModule } from '@angular/forms';
 // NGX Pagination
 import { NgxPaginationModule } from 'ngx-pagination';
-import {AdminProfileComponent} from './admin-profile/admin-profile.component';
+import { AdminProfileComponent } from './admin-profile/admin-profile.component';
 import { AppComponent } from './app.component';
-import {MaterialModule} from './material.module';
+import { MaterialModule } from './material.module';
 import { CreatePatientComponent } from './create-patient/create-patient.component';
-import {DoctorDetailsComponent} from './doctor-details/doctor-details.component';
-import {PatientDetailsComponent} from './patient-details/patient-details.component';
+import { DoctorDetailsComponent } from './doctor-details/doctor-details.component';
+import { PatientDetailsComponent } from './patient-details/patient-details.component';
 
 
 
@@ -45,15 +45,16 @@ import {PatientDetailsComponent} from './patient-details/patient-details.compone
     CreatePatientComponent,
     DoctorDetailsComponent,
     PatientDetailsComponent
-],
+  ],
   imports: [
-  MaterialModule,
+    MaterialModule,
     NgbModule,
     AngularFireModule.initializeApp(environment.firebase), // Main Angular fire module 
     AngularFireDatabaseModule,  // Firebase database module 
     ReactiveFormsModule, 
+
     FormsModule,
-     Ng2SearchPipeModule,
+    Ng2SearchPipeModule,
     AppRoutingModule,           // Main routing module
     BrowserAnimationsModule,    // Required animations module for Toastr
     ToastrModule.forRoot({      // Register NgxToast NPM module
@@ -67,6 +68,5 @@ import {PatientDetailsComponent} from './patient-details/patient-details.compone
   entryComponents: [AppComponent,AdminProfileComponent, EditAppointmentComponent],
   providers: [],  
   bootstrap: [AppComponent],
-
 })
 export class AppModule { }

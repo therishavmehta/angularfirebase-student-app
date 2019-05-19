@@ -8,9 +8,10 @@
 </div>
 
 <div class="pricing-header mx-auto">
-<div class="search-hero">
-      <input class="form-control" type="text" name="search" [(ngModel)]="searchAppointment" autocomplete="off" placeholder="Search by ailment, Id, username">
-    </div>
+  <div class="search-hero">
+    <input class="form-control" type="text" name="search" [(ngModel)]="searchAppointment" autocomplete="off"
+      placeholder="Search by ailment, Id, username">
+  </div>
   <!-- Preloader shows before the data loads-->
   <div class="no-data text-center" *ngIf="preLoader">
     <img src="assets/preloader.gif" class="preloader-icon" alt="No Appointment">
@@ -33,7 +34,8 @@
         <tr>
           <th scope="col">Application Id</th>
           <th scope="col">Ailment</th>
-          <th scope="col">Date</th>
+          <th scope="col">Application Date</th>
+          <th scope="col">Appointment Date</th>
           <th scope="col">Status</th>
           <th scope="col">Patient Name</th>
           <th scope="col">Doctor Name</th>
@@ -48,6 +50,7 @@
           <th scope="row">{{appointment?.$key}}</th>
           <td>{{appointment?.ailment}}</td>
           <td>{{appointment.creationDate}}</td>
+          <td>{{appointment.approvedDate}}<br>{{appointment.approvedTime}}</td>
           <td *ngIf="appointment.status==2" style="color:green">Accepted</td>
           <td *ngIf="appointment.status==1" style="color:yellow">Pending</td>
           <td *ngIf="appointment.status==0" style="color:red">Rejected</td>
@@ -55,7 +58,7 @@
           <td>{{appointment?.doctor?.employeeName}}</td>
           <td class="text-center action-block">
             <i class="far fa-edit" routerLink="/edit-appointment/{{appointment.$key}}"></i></td>
-           <td> <i class="far fa-trash-alt" (click)="deleteAppointment(appointment)"></i></td>
+          <td> <i class="far fa-trash-alt" (click)="deleteAppointment(appointment)"></i></td>
         </tr>
       </tbody>
     </table>

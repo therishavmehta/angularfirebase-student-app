@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import Schedule from '../shared/schedule';
 import { Appointment } from '../shared/appointment';  // Appointment data type interface class
-import { AngularFireDatabase, AngularFireList,
-  AngularFireObject } from '@angular/fire/database';  // Firebase modules for Database, Data list and Single object
+import {
+  AngularFireDatabase, AngularFireList,
+  AngularFireObject
+} from '@angular/fire/database';  // Firebase modules for Database, Data list and Single object
 
 @Injectable({
   providedIn: 'root'
@@ -26,8 +28,8 @@ export class CrudService {
     this.appointmentsRef.push({
       ailment: appointment.ailment,
       creationDate: appointment.creationDate,
-      appprovedDate: appointment.approvedDate ? appointment.approvedDate: "-",
-      doctorID: appointment.doctorID ? appointment.doctorID: "-" ,
+      approvedDate: appointment.approvedDate ? appointment.approvedDate : '-',
+      doctorID: appointment.doctorID ? appointment.doctorID : '-',
       patientID: appointment.patientID,
       status: appointment.status
     });
@@ -70,16 +72,46 @@ export class CrudService {
     this.appointmentsRef = this.db.list('appointments');
     return this.appointmentsRef;
   }
-   updateDoctorSchelduleNode(id: string) {
-     this.doctorRef = this.getDoctorById(id);
-     this.scheduleRef = this.doctorRef;
-   }
+  updateDoctorSchelduleNode(id: string) {
+    this.doctorRef = this.getDoctorById(id);
+    this.scheduleRef = this.doctorRef;
+  }
   // Update Appointment Object
   UpdateAppointment(appointment: Appointment) {
-    this.appointmentRef.update({
-      status: appointment.status,
-      doctorID: appointment.doctorID
-    });
+    if (!appointment.doctorID && appointment.status && !appointment.approvedDate) {
+      this.appointmentRef.update({
+        status: appointment.status
+      });
+    } else if (!appointment.status && appointment.doctorID && !appointment.approvedDate) {
+      this.appointmentRef.update({
+        doctorID: appointment.doctorID
+      });
+    } else if (!appointment.status && !appointment.doctorID && appointment.approvedDate) {
+      this.appointmentRef.update({
+        approvedDate: appointment.approvedDate
+      });
+    } else if (appointment.status && appointment.doctorID && !appointment.approvedDate) {
+      this.appointmentRef.update({
+        doctorID: appointment.doctorID,
+        status: appointment.status
+      });
+    } else if (appointment.status && !appointment.doctorID && appointment.approvedDate) {
+      this.appointmentRef.update({
+        status: appointment.status,
+        approvedDate: appointment.approvedDate
+      });
+    } else if (!appointment.status && appointment.doctorID && appointment.approvedDate) {
+      this.appointmentRef.update({
+        doctorID: appointment.doctorID,
+        approvedDate: appointment.approvedDate
+      });
+    } else {
+      this.appointmentRef.update({
+        status: appointment.status,
+        doctorID: appointment.doctorID,
+        approvedDate: appointment.approvedDate
+      });
+    }
   }
 
   // Delete Appointment Object
