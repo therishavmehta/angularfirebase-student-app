@@ -1,7 +1,7 @@
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
   <h1 class="h2">Appointment Details</h1>
   <!-- It won't show if there is no appointment data -->
-  <a routerLink="/register-appointment" class="btn btn-success" *ngIf="hideWhenNoappointment">
+  <a routerLink="/register-appointment" class="btn btn-success" *ngIf="hideWhenNoAppointment">
     <i class="fas fa-plus custom-fa-plus"></i>
     Add Appointment
   </a>
@@ -45,14 +45,14 @@
         <!-- *ngFor loop iterates over appointment array and fetch the appointment's data -->
         <!-- paginate pipe will add pagination in appointment's list, it won't show if items are less then 7 -->
         <tr *ngFor="let appointment of Appointment | filter:searchAppointment | paginate: { itemsPerPage: 7, currentPage: p }; let i = index;">
-          <th scope="row">{{appointment.$key}}</th>
-          <td>{{appointment.ailment}}</td>
+          <th scope="row">{{appointment?.$key}}</th>
+          <td>{{appointment?.ailment}}</td>
           <td>{{appointment.creationDate}}</td>
           <td *ngIf="appointment.status==2" style="color:green">Accepted</td>
           <td *ngIf="appointment.status==1" style="color:yellow">Pending</td>
           <td *ngIf="appointment.status==0" style="color:red">Rejected</td>
-          <td>{{appointment.patient.name}}</td>
-          <td>{{appointment.doctor.employeeName}}</td>
+          <td>{{appointment?.patient?.name}}</td>
+          <td>{{appointment?.doctor?.employeeName}}</td>
           <td class="text-center action-block">
             <i class="far fa-edit" routerLink="/edit-appointment/{{appointment.$key}}"></i></td>
            <td> <i class="far fa-trash-alt" (click)="deleteAppointment(appointment)"></i></td>

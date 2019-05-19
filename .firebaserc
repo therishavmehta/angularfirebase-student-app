@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "angularfirebase-student-app"
+    "default": "angularfirebase-student-app",
+    "staging": "colpo-11462"
   }
 }

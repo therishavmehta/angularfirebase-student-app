@@ -49,11 +49,9 @@ import {PatientDetailsComponent} from './patient-details/patient-details.compone
   imports: [
   MaterialModule,
     NgbModule,
-    BrowserModule,
     AngularFireModule.initializeApp(environment.firebase), // Main Angular fire module 
     AngularFireDatabaseModule,  // Firebase database module 
     ReactiveFormsModule, 
-    BrowserModule,
     FormsModule,
      Ng2SearchPipeModule,
     AppRoutingModule,           // Main routing module
@@ -68,7 +66,7 @@ import {PatientDetailsComponent} from './patient-details/patient-details.compone
   exports: [MaterialModule],
   entryComponents: [AppComponent,AdminProfileComponent, EditAppointmentComponent],
   providers: [],  
-  bootstrap: [AppComponent, EditAppointmentComponent],
+  bootstrap: [AppComponent],
 
 })
 export class AppModule { }
