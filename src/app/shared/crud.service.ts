@@ -31,7 +31,7 @@ export class CrudService {
       approvedDate: appointment.approvedDate ? appointment.approvedDate : '-',
       doctorID: appointment.doctorID ? appointment.doctorID : '-',
       patientID: appointment.patientID,
-      status: appointment.status
+      status: Number(appointment.status)
     });
   }
   // addSchedule(schedule: Schedule){
@@ -80,7 +80,7 @@ export class CrudService {
   UpdateAppointment(appointment: Appointment) {
     if (!appointment.doctorID && appointment.status && !appointment.approvedDate) {
       this.appointmentRef.update({
-        status: appointment.status
+        status: Number(appointment.status)
       });
     } else if (!appointment.status && appointment.doctorID && !appointment.approvedDate) {
       this.appointmentRef.update({
@@ -93,11 +93,11 @@ export class CrudService {
     } else if (appointment.status && appointment.doctorID && !appointment.approvedDate) {
       this.appointmentRef.update({
         doctorID: appointment.doctorID,
-        status: appointment.status
+        status: Number(appointment.status)
       });
     } else if (appointment.status && !appointment.doctorID && appointment.approvedDate) {
       this.appointmentRef.update({
-        status: appointment.status,
+        status: Number(appointment.status),
         approvedDate: appointment.approvedDate
       });
     } else if (!appointment.status && appointment.doctorID && appointment.approvedDate) {

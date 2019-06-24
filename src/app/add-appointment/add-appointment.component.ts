@@ -35,7 +35,7 @@ export class AddAppointmentComponent implements OnInit {
       approvedDate: [''],
       doctorID: [''],
       patientID: [''],
-      status: ['']
+      status: []
     });
   }
 
@@ -72,7 +72,7 @@ export class AddAppointmentComponent implements OnInit {
   }
   get status() {
     if (this.applicationForm.get('status')) {
-      return this.applicationForm.get('status');
+      return Number(this.applicationForm.get('status'));
     }
     return 1;
   }
